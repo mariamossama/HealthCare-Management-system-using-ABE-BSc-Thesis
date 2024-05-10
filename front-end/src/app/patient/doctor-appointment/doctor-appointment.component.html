@@ -1,0 +1,113 @@
+<div class="container">
+
+  <form (ngSubmit)="appoint()" [formGroup]="myForm">
+
+
+    <div class="row">
+
+
+      <div class="flex justify-content-center col-6" style="margin-top: 5%">
+    <span class="p-float-label d-block w-100">
+        <input pInputText class="p-inputtext-sm d-block w-100
+                    {{(myForm.get('email')?.errors && myForm.get('email')?.touched)?'ng-dirty ng-invalid':''}}"
+               id="email" type="text"
+               required formControlName="email"/>
+        <label htmlFor="email"><span><i class="pi pi-envelope"></i></span> Email</label>
+    </span>
+      </div>
+
+      <div class="flex justify-content-center col-6" style="margin-top: 5%">
+    <span class="p-float-label d-block w-100">
+        <input pInputText class="p-inputtext-sm d-block w-100
+                    {{(myForm.get('name')?.errors && myForm.get('name')?.touched)?'ng-dirty ng-invalid':''}}"
+               id="name" type="text"
+               required formControlName="name"/>
+        <label htmlFor="name"><span><i class="pi pi-user-plus"></i></span> Name</label>
+    </span>
+      </div>
+    </div>
+
+
+    <div class="row">
+
+
+            <div class="col-6" style="margin-top: 5%">
+              <span class="p-float-label">
+             <p-dropdown [showClear]="true"
+                         class="{{(myForm.get('gender')?.errors && myForm.get('gender')?.touched)?'ng-dirty ng-invalid':''}}"
+                         appendTo="body" styleClass="w-100" formControlName="gender"
+                         [options]="genders" placeholder="Select a Gender" optionLabel="name" id="float-label" inputId="float-label"></p-dropdown>
+                        <label for="float-label">Select a Gender</label>
+              </span>
+            </div>
+            <div class="col-6" style="margin-top: 5%">
+              <span class="p-float-label">
+                <p-dropdown
+                  appendTo="body"
+                  [options]="doctors"
+                  styleClass="w-100"
+                  class="{{(myForm.get('doctor')?.errors && myForm.get('doctor')?.touched)?'ng-dirty ng-invalid':''}}"
+                  formControlName="doctor"
+                  optionLabel="name"
+                  placeholder="Select A Doctor"
+                  id="float-Doctor"
+                  inputId="float-Doctor"
+                ></p-dropdown>
+                <label for="float-Doctor">Select a Doctor</label>
+              </span>
+            </div>
+
+
+
+    </div>
+
+    <div class="row">
+
+
+      <div class="col-6" style="margin-top: 5%">
+                <span class="p-float-label">
+                <p-calendar
+                            [showTime]="true"
+                            class="{{(myForm.get('date')?.errors && myForm.get('date')?.touched)?'ng-dirty ng-invalid':''}}"
+                            formControlName="date" styleClass="w-100" placeholder="Select appointment date" id="float-AD" inputId="float-AD"></p-calendar>
+                  <label for="float-AD">Select appointment date</label>
+                </span>
+      </div>
+
+      <div class="flex justify-content-center col-6" style="margin-top: 5%">
+    <span class="p-float-label d-block w-100">
+        <input pInputText class="p-inputtext-sm d-block w-100
+                    {{(myForm.get('medicalHistory')?.errors && myForm.get('medicalHistory')?.touched)?'ng-dirty ng-invalid':''}}"
+               id="medicalHistory" type="text"
+               required formControlName="medicalHistory"/>
+        <label htmlFor="medicalHistory"><span><i class="pi pi-heart"></i></span> Your health problem Description</label>
+    </span>
+      </div>
+    </div>
+
+    <div class="row">
+
+
+      <div class="col-6" style="margin-top: 5%">
+        <span class="p-float-label">
+        <p-calendar dateFormat="dd-mm-yy"
+                    class="{{(myForm.get('dateOfBirth')?.errors && myForm.get('dateOfBirth')?.touched)?'ng-dirty ng-invalid':''}}"
+                    formControlName="dateOfBirth" styleClass="w-100" placeholder="Select DOB" id="float-DOB"
+                    inputId="float-DOB"></p-calendar>
+          <label for="float-DOB">Select a DOB</label>
+        </span>
+    </div>
+
+    </div>
+
+    <div class="d-flex justify-content-between">
+      <button pButton pRipple label="Submit" class="p-button-success w-3" type="ngSubmit"
+              [disabled]="!myForm.valid"></button>
+      <button pButton pRipple label="Reset" class="p-button-danger w-3" type="reset"></button>
+    </div>
+
+
+  </form>
+
+
+</div>

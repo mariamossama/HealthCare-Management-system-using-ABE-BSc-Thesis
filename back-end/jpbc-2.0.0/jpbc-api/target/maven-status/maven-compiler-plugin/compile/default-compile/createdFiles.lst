@@ -1,0 +1,13 @@
+it\unisa\dia\gas\jpbc\PairingParametersGenerator.class
+it\unisa\dia\gas\jpbc\FieldOver.class
+it\unisa\dia\gas\jpbc\PreProcessing.class
+it\unisa\dia\gas\jpbc\PairingParameters.class
+it\unisa\dia\gas\jpbc\Point.class
+it\unisa\dia\gas\jpbc\Vector.class
+it\unisa\dia\gas\jpbc\Pairing.class
+it\unisa\dia\gas\jpbc\PairingPreProcessing.class
+it\unisa\dia\gas\jpbc\Element.class
+it\unisa\dia\gas\jpbc\Field.class
+it\unisa\dia\gas\jpbc\Polynomial.class
+it\unisa\dia\gas\jpbc\ElementPowPreProcessing.class
+it\unisa\dia\gas\jpbc\ElementPow.class

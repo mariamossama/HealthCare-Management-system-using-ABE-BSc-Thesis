@@ -1,0 +1,14 @@
+<p-menubar [model]="items">
+
+  <ng-template pTemplate="end">
+    <div class="container">
+      <div class="d-flex">
+        @if (userData.role == "Doctor"){
+          <p-button icon="pi pi-users" styleClass="mr-5" [raised]="true" routerLink="/doctor/notify-patient"></p-button>
+        }
+        <p-button icon="pi pi-power-off"
+                (click)="logout()"  [rounded]="true" severity="danger"  [raised]="true"></p-button>
+      </div>
+    </div>
+  </ng-template>
+</p-menubar>

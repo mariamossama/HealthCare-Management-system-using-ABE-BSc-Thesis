@@ -1,0 +1,146 @@
+<div class="container">
+
+  <form (ngSubmit)="addNewPatient()" [formGroup]="myForm">
+    <div>
+      <p class="lead">Welcome, Dr.{{ userData?.name}}!</p>
+    </div>
+
+    <div>
+      <p class="lead">Add New Patient : </p>
+    </div>
+
+    <div class="row">
+
+
+
+      <div class="flex justify-content-center col-6" style="margin-top: 5%">
+    <span class="p-float-label d-block w-100">
+        <input pInputText class="p-inputtext-sm d-block w-100
+                    {{(myForm.get('firstName')?.errors && myForm.get('firstName')?.touched)?'ng-dirty ng-invalid':''}}"
+               id="firstName" type="text"
+               required formControlName="firstName"/>
+        <label htmlFor="firstName"><span><i class="pi pi-user"></i></span> First Name</label>
+    </span>
+      </div>
+
+      <div class="flex justify-content-center col-6" style="margin-top: 5%">
+    <span class="p-float-label d-block w-100">
+        <input pInputText class="p-inputtext-sm d-block w-100
+                    {{(myForm.get('secondName')?.errors && myForm.get('secondName')?.touched)?'ng-dirty ng-invalid':''}}"
+               id="secondName" type="text"
+               required formControlName="secondName"/>
+        <label htmlFor="secondName"><span><i class="pi pi-user"></i></span> Second Name</label>
+    </span>
+      </div>
+    </div>
+
+
+    <div class="row">
+
+
+      <div class="col-6" style="margin-top: 5%">
+        <span class="p-float-label">
+       <p-dropdown [showClear]="true"
+                   class="{{(myForm.get('gender')?.errors && myForm.get('gender')?.touched)?'ng-dirty ng-invalid':''}}"
+                   appendTo="body" styleClass="w-100" formControlName="gender"
+                   [options]="genders" placeholder="Select a Gender" optionLabel="name" id="float-label"
+                   inputId="float-label"></p-dropdown>
+                  <label for="float-label">Select a Gender</label>
+        </span>
+      </div>
+
+      <div class="col-6" style="margin-top: 5%">
+        <span class="p-float-label">
+            <p-calendar dateFormat="dd-mm-yy"
+                        [maxDate]="maxDate"
+                        class="{{(myForm.get('dateOfBirth')?.errors && myForm.get('dateOfBirth')?.touched) ? 'ng-dirty ng-invalid' : ''}}"
+                        formControlName="dateOfBirth" styleClass="w-100" placeholder="Select DOB" id="float-DOB"
+                        inputId="float-DOB"></p-calendar>
+            <label for="float-DOB">Select a DOB</label>
+        </span>
+    </div>
+
+
+
+    </div>
+
+    <div class="row">
+
+      <div class="col-6" style="margin-top: 5%">
+        <span class="p-float-label">
+          <p-multiSelect
+            appendTo="body"
+            [options]="doctors"
+            styleClass="w-100"
+            class="{{(myForm.get('doctors')?.errors && myForm.get('doctors')?.touched)?'ng-dirty ng-invalid':''}}"
+            formControlName="doctors"
+            optionLabel="name"
+            placeholder="Select A Doctors"
+            id="float-Doctor"
+            inputId="float-Doctor"
+            display="chip"
+          ></p-multiSelect>
+          <label for="float-Doctor">Select Doctors</label>
+        </span>
+      </div>
+
+
+      <div class="col-6" style="margin-top: 5%">
+        <span class="p-float-label">
+          <p-multiSelect
+            appendTo="body"
+            [options]="nurses"
+            styleClass="w-100"
+            class="{{(myForm.get('nurses')?.errors && myForm.get('nurses')?.touched)?'ng-dirty ng-invalid':''}}"
+            formControlName="nurses"
+            optionLabel="name"
+            placeholder="Select A Nurses"
+            id="float-nurses"
+            inputId="float-nurses"
+            display="chip"
+          ></p-multiSelect>
+          <label for="float-nurses">Select a Nurse</label>
+        </span>
+      </div>
+
+
+    </div>
+    <div class="row">
+      <div style="margin-top: 5%" class="col-6">
+        <span class="p-float-label">
+          <textarea rows="3" cols="85" id="medicalHistory"  pInputTextarea [autoResize]="true" formControlName="medicalHistory"></textarea>
+          <label for="medicalHistory">Medical History</label>
+        </span>
+
+      </div>
+
+    <div style="margin-top: 5%" class="col-6">
+      <span class="p-float-label">
+        <textarea rows="3" cols="85" id="symptomSummary"  pInputTextarea [autoResize]="true" formControlName="symptomSummary"></textarea>
+        <label for="symptomSummary">Symptoms Summary</label>
+      </span>
+
+    </div>
+  </div>
+  <div class="row">
+  <div style="margin-top: 5%" class="col-6">
+    <span class="p-float-label">
+      <textarea rows="3" cols="85" id="currentDiagnosis"  pInputTextarea [autoResize]="true" formControlName="currentDiagnosis"></textarea>
+      <label for="currentDiagnosis">Current Diagnosis</label>
+    </span>
+
+  </div>
+</div>
+    <div style="margin-bottom: 2%" class="d-flex justify-content-between">
+      <button pButton pRipple label="Submit" class="p-button-success w-3" type="ngSubmit"
+              [disabled]="!myForm.valid"></button>
+      <button pButton pRipple label="ALL Patient" class="w-3"
+              (click)="getAllPatient();$event.preventDefault()"></button>
+      <button pButton pRipple label="Reset" class="p-button-danger w-3" type="reset"></button>
+    </div>
+
+
+  </form>
+
+
+</div>

@@ -1,0 +1,46 @@
+<div class=" px-4 py-5 md:px-6 lg:px-8">
+  <div class="grid">
+    <div class="col-12 md:col-6 lg:col-4" style="cursor: pointer" (click)="navigateTo('doctor')">
+      <div class="surface-card shadow-2 p-3 border-round">
+        <div class="flex justify-content-between mb-3">
+          <div>
+            <span class="block text-500 font-medium mb-3">Doctors</span>
+            <div class="text-900 font-medium text-xl">{{ dashboardData.doctors }}</div>
+          </div>
+          <div class="flex align-items-center justify-content-center bg-blue-100 border-round"
+               style="width:2.5rem;height:2.5rem">
+            <i class="pi pi-prime text-blue-500 text-xl"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 md:col-6 lg:col-4" style="cursor: pointer" (click)="navigateTo('nurse')">
+      <div class="surface-card shadow-2 p-3 border-round">
+        <div class="flex justify-content-between mb-3">
+          <div>
+            <span class="block text-500 font-medium mb-3">Nurses</span>
+            <div class="text-900 font-medium text-xl">{{ dashboardData.nurses }}</div>
+          </div>
+          <div class="flex align-items-center justify-content-center bg-orange-100 border-round"
+               style="width:2.5rem;height:2.5rem">
+            <i class="pi pi-users text-orange-500 text-xl"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 md:col-6 lg:col-4" style="cursor: pointer" (click)="navigateTo('patient')">
+      <div class="surface-card shadow-2 p-3 border-round">
+        <div class="flex justify-content-between mb-3">
+          <div>
+            <span class="block text-500 font-medium mb-3">Patients</span>
+            <div class="text-900 font-medium text-xl">{{ dashboardData.patients }}</div>
+          </div>
+          <div class="flex align-items-center justify-content-center bg-cyan-100 border-round"
+               style="width:2.5rem;height:2.5rem">
+            <i class="pi pi-reddit text-cyan-500 text-xl"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

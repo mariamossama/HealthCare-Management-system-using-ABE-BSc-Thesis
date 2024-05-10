@@ -1,0 +1,171 @@
+<p-toast></p-toast>
+<p-table
+  #dt
+  [value]="allOperationalUsers"
+  dataKey="id"
+  [paginator]="true"
+  [rows]="5"
+  [showCurrentPageReport]="true"
+  [tableStyle]="{ 'min-width': '50rem' }"
+  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} users"
+  [rowsPerPageOptions]="[5, 10, 20]"
+  [globalFilterFields]="['email', 'name', 'Phone','role.name']"
+  editMode="row"
+>
+  <ng-template pTemplate="caption">
+    <div class="flex align-items-center justify-content-between">
+      <p class="lead">Users</p>
+      <div>
+        <button pButton label="Clear" class="p-button-outlined" icon="pi pi-filter-slash" (click)="clear(dt)"></button>
+      </div>
+      <div>
+        <span class="p-input-icon-left ml-auto">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" (input)="onInputChange(dt, $event.target)"
+                           placeholder="Search keyword"/>
+                </span>
+      </div>
+
+    </div>
+  </ng-template>
+  <ng-template pTemplate="header">
+    <tr>
+      <th pSortableColumn="email" class="text-center">Email
+        <p-sortIcon field="email"></p-sortIcon>
+      </th>
+      <th pSortableColumn="name" class="text-center">Name
+        <p-sortIcon field="name"></p-sortIcon>
+      </th>
+      <th pSortableColumn="phone" class="text-center">Phone
+        <p-sortIcon field="phone"></p-sortIcon>
+      </th>
+      <th pSortableColumn="role.name" class="text-center">Role
+        <p-sortIcon field="role.name"></p-sortIcon>
+      </th>
+      <th class="text-center">Action</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-user let-editing="editing" let-ri="rowIndex">
+    <tr [pEditableRow]="user">
+
+      <td>
+        <p-cellEditor class="d-flex justify-content-center">
+          <ng-template pTemplate="input">
+            <input pInputText type="text" [(ngModel)]="user.email">
+          </ng-template>
+          <ng-template pTemplate="output">
+            {{ user.email }}
+          </ng-template>
+        </p-cellEditor>
+      </td>
+      <td>
+        <p-cellEditor class="d-flex justify-content-center">
+          <ng-template pTemplate="input">
+            <input pInputText type="text" [(ngModel)]="user.name">
+          </ng-template>
+          <ng-template pTemplate="output">
+            {{ user.name }}
+          </ng-template>
+        </p-cellEditor>
+      </td>
+      <td>
+        <p-cellEditor class="d-flex justify-content-center">
+          <ng-template pTemplate="input">
+            <input pInputText type="text" [(ngModel)]="user.phone">
+          </ng-template>
+          <ng-template pTemplate="output">
+            {{ user.phone }}
+          </ng-template>
+        </p-cellEditor>
+      </td>
+
+      <td>
+        <p-cellEditor class="d-flex justify-content-center">
+          <ng-template pTemplate="input">
+
+            <div class="card flex justify-content-center">
+              <p-dropdown appendTo="body" [options]="allOperationalRoles" [(ngModel)]="selectedRole" optionLabel="name"
+                          [showClear]="true"></p-dropdown>
+            </div>
+          </ng-template>
+          <ng-template pTemplate="output">
+            {{ user.role.name }}
+          </ng-template>
+        </p-cellEditor>
+      <td>
+        <div class="flex align-items-center justify-content-center">
+          <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil"
+                  (click)="onRowEditInit(user)" class="p-button-rounded p-button-text"></button>
+          <button *ngIf="!editing" pButton pRipple type="button" icon="pi pi-trash"
+                  (click)="deActiveUser(user)" class="p-button-rounded p-button-text p-button-danger"></button>
+          <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check"
+                  (click)="onRowEditSave(user)" class="p-button-rounded p-button-text p-button-success mr-2"></button>
+          <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times"
+                  (click)="onRowEditCancel(user, ri)" class="p-button-rounded p-button-text p-button-danger"></button>
+        </div>
+      </td>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="paginatorleft">
+    <p-button type="button" icon="pi pi-plus" styleClass="p-button-text rounded-circle"
+              (click)="addUserDialogue()"></p-button>
+  </ng-template>
+  <ng-template pTemplate="paginatorright">
+    <!--    <p-button type="button" icon="pi pi-cloud" styleClass="p-button-text"></p-button>-->
+  </ng-template>
+  <!--  <ng-template pTemplate="summary"> <p>Users: {{allOperationalUsers.length}}</p> </ng-template>-->
+</p-table>
+
+
+<p-dialog header="User" [(visible)]="showAddUserDialogue" [style]="{width: '50vw'}">
+  <form (ngSubmit)="addNewUser()" [formGroup]="myForm">
+
+    <div class="flex justify-content-center" style="margin-top: 5%" style="margin-top: 5%">
+    <span class="p-float-label d-block w-100">
+        <input pInputText class="p-inputtext-sm d-block w-100
+                              {{(myForm.get('email')?.errors && myForm.get('email')?.touched)?'ng-dirty ng-invalid':''}}"
+               id="email" type="email" required formControlName="email"/>
+        <label htmlFor="email"><span><i class="pi pi-envelope"></i></span> Email</label>
+    </span>
+    </div>
+
+    <div class="flex justify-content-center" style="margin-top: 5%">
+    <span class="p-float-label d-block w-100">
+        <input pInputText class="p-inputtext-sm d-block w-100
+                    {{(myForm.get('name')?.errors && myForm.get('name')?.touched)?'ng-dirty ng-invalid':''}}"
+               id="name" type="text"
+               required formControlName="name"/>
+        <label htmlFor="name"><span><i class="pi pi-users"></i></span> Name</label>
+    </span>
+    </div>
+
+    <div class="flex justify-content-center" style="margin-top: 5%">
+    <span class="p-float-label d-block w-100">
+        <input pInputText class="p-inputtext-sm d-block w-100
+                    {{(myForm.get('phone')?.errors && myForm.get('phone')?.touched)?'ng-dirty ng-invalid':''}}"
+               id="phone" type="text"
+               required formControlName="phone"/>
+        <label htmlFor="phone"><span><i class="pi pi-phone"></i></span> Phone</label>
+    </span>
+    </div>
+
+    <div class="flex justify-content-center" style="margin-top: 5%">
+      <span class="p-float-label d-block w-100">
+       <p-dropdown appendTo="body" styleClass="d-block w-100" formControlName="role"
+                   [options]="allOperationalRoles" [(ngModel)]="selectedRole" placeholder="Select a Role" optionLabel="name"
+                inputId="float-role-label" id="float-role-label"></p-dropdown>
+        <label for="float-role-label">Select a Role</label>
+      </span>
+    </div>
+
+
+    <div class="d-flex justify-content-center" style="margin-top: 2%">
+      <button class="btn btn-primary rounded w-50" type="ngSubmit" [disabled]="!myForm.valid"><span><i
+        class="pi pi-save"></i></span> Save
+      </button>
+    </div>
+  </form>
+</p-dialog>
+
+
+

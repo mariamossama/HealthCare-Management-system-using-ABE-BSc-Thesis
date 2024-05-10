@@ -1,0 +1,76 @@
+<p-table
+  #dt
+  [value]="doctorAppointment"
+  dataKey="id"
+  [paginator]="true"
+  [rows]="5"
+  [showCurrentPageReport]="true"
+  [tableStyle]="{ 'min-width': '50rem' }"
+  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} users"
+  [rowsPerPageOptions]="[5, 10, 20]"
+  [globalFilterFields]="['name', 'email', 'gender']"
+  editMode="row"
+>
+  <ng-template pTemplate="caption">
+    <div class="flex align-items-center justify-content-between">
+      <p class="lead">Patients</p>
+      <div>
+        <button pButton label="Clear" class="p-button-outlined" icon="pi pi-filter-slash" (click)="clear(dt)"></button>
+      </div>
+
+    </div>
+  </ng-template>
+  <ng-template pTemplate="header">
+    <tr>
+      <th pSortableColumn="name" class="text-center">Name
+        <p-sortIcon field="name"></p-sortIcon>
+      </th>
+      <th pSortableColumn="email" class="text-center">Email
+      </th>
+      <th pSortableColumn="gender" class="text-center">Gender
+      </th>
+      <th pSortableColumn="description" class="text-center"> Health Problem
+
+      </th>
+      <th pSortableColumn="appointment" class="text-center"> Appointment
+
+      </th>
+    <th pSortableColumn="dateOfBirth" class="text-center"> Date Of Birth
+
+    </th>
+      <th class="text-center">Action</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-patient >
+    <tr>
+
+      <td class="text-center">
+        {{ patient.name }}
+      </td>
+      <td class="text-center">
+        {{ patient.email }}
+      </td>
+      <td class="text-center">
+        {{ patient.gender.name }}
+      </td>
+      <td class="text-center">
+        {{ patient.medicalHistory }}
+      </td>
+      <td class="text-center">
+        {{ patient.day }}
+      </td>
+
+      <td class="text-center">
+        {{ patient.dateOfBirth}}
+      </td>
+
+      <td class="text-center">
+        <div class="flex align-items-center justify-content-center">
+          <button pButton pRipple type="button" icon="pi pi-trash"
+                  (click)="add(patient)" class="p-button-rounded p-button-text p-button-danger"></button>
+          </div>
+      </td>
+
+    </tr>
+  </ng-template>
+</p-table>

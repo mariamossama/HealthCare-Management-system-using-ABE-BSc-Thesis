@@ -1,0 +1,64 @@
+<p-table
+  #dt
+  [value]="allUsers"
+  dataKey="id"
+  [paginator]="true"
+  [rows]="5"
+  [showCurrentPageReport]="true"
+  [tableStyle]="{ 'min-width': '50rem' }"
+  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} users"
+  [rowsPerPageOptions]="[5, 10, 20]"
+  [globalFilterFields]="['name', 'email', 'phone']"
+  editMode="row"
+>
+  <ng-template pTemplate="caption">
+    <div class="flex align-items-center justify-content-between">
+      <p class="lead">{{ type }}</p>
+      <div>
+        <button pButton label="Clear" class="p-button-outlined" icon="pi pi-filter-slash" (click)="clear(dt)"></button>
+      </div>
+      <div>
+        <span class="p-input-icon-left ml-auto">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" (input)="onInputChange(dt, $event.target)"
+                           placeholder="Search keyword"/>
+                </span>
+      </div>
+
+    </div>
+  </ng-template>
+  <ng-template pTemplate="header">
+    <tr>
+      <th pSortableColumn="name" class="text-center">UserName
+        <p-sortIcon field="name"></p-sortIcon>
+      </th>
+      <th pSortableColumn="email" class="text-center">Email
+        <p-sortIcon field="email"></p-sortIcon>
+      </th>
+      <th pSortableColumn="phone" class="text-center">Phone
+        <p-sortIcon field="phone"></p-sortIcon>
+      </th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-user >
+    <tr>
+
+      <td class="text-center">
+        {{ user.name }}
+      </td>
+      <td class="text-center">
+        {{ user.email }}
+      </td>
+      <td class="text-center">
+        {{ user.phone }}
+      </td>
+
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="paginatorleft">
+  </ng-template>
+  <ng-template pTemplate="paginatorright">
+    <!--    <p-button type="button" icon="pi pi-cloud" styleClass="p-button-text"></p-button>-->
+  </ng-template>
+  <!--  <ng-template pTemplate="summary"> <p>Users: {{allOperationalUsers.length}}</p> </ng-template>-->
+</p-table>

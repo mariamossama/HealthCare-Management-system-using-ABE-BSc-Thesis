@@ -1,0 +1,32 @@
+<div class="container text-center shadow p-3 mb-5 bg-body rounded w-50" style="margin-top: 10%">
+  <p class="lead font-bold display-6">Login</p>
+  <form (ngSubmit)="login()" [formGroup]="myForm">
+
+    <div class="flex justify-content-center" style="margin-top: 5%" style="margin-top: 5%">
+    <span class="p-float-label d-block w-100">
+        <input pInputText class="p-inputtext-sm d-block w-100
+                              {{(myForm.get('email')?.errors && myForm.get('email')?.touched)?'ng-dirty ng-invalid':''}}" id="email" type="email" required formControlName="email"/>
+        <label htmlFor="email"><span><i class="pi pi-envelope"></i></span> Email</label>
+    </span>
+    </div>
+
+    <div class="flex justify-content-center" style="margin-top: 5%">
+    <span class="p-float-label d-block w-100">
+        <input pInputText class="p-inputtext-sm d-block w-100
+                    {{(myForm.get('password')?.errors && myForm.get('password')?.touched)?'ng-dirty ng-invalid':''}}" id="password" type="password"
+               required formControlName="password"/>
+        <label htmlFor="password"><span><i class="pi pi-lock"></i></span> Password</label>
+    </span>
+    </div>
+
+    <div class="flex justify-content-center">
+      <a routerLink="/patient">Are you a patient ..?</a>
+    </div>
+
+    <div class="d-flex justify-content-center" style="margin-top: 2%">
+      <button class="btn btn-primary rounded w-50" type="ngSubmit" [disabled]="send || !myForm.valid"><span><i
+        class="pi pi-lock"></i></span> Login
+      </button>
+    </div>
+  </form>
+</div>

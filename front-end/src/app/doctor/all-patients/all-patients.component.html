@@ -1,0 +1,71 @@
+
+<p-table
+  #dt
+  [value]="patients"
+  dataKey="id"
+  [paginator]="true"
+  [rows]="5"
+  [showCurrentPageReport]="true"
+  [tableStyle]="{ 'min-width': '50rem' }"
+  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} patients"
+  [rowsPerPageOptions]="[5, 10, 20]"
+  [globalFilterFields]="['firstName', 'lastName', 'gender']"
+  editMode="row"
+>
+
+  <ng-template pTemplate="caption">
+    <div class="flex align-items-center justify-content-between">
+      <p class="lead">Patients</p>
+      <div>
+        <p class="lead">Welcome, Dr.{{ userData?.name}}!</p>
+      </div>
+      <div>
+        <span class="p-input-icon-left ml-auto">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" (input)="onInputChange(dt, $event.target)"
+                           placeholder="Search keyword"/>
+                </span>
+      </div>
+
+    </div>
+  </ng-template>
+  <ng-template pTemplate="header">
+    <tr>
+      <th pSortableColumn="firstName" class="text-center">FirstName
+        <p-sortIcon field="firstName"></p-sortIcon>
+      </th>
+      <th pSortableColumn="lastName" class="text-center">LastName
+        <p-sortIcon field="lastName"></p-sortIcon>
+      </th>
+      <th pSortableColumn="gender" class="text-center">Gender
+        <p-sortIcon field="gender"></p-sortIcon>
+      </th>
+      <th class="text-center">Action</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-patient >
+    <tr [pEditableRow]="patient">
+
+      <td class="text-center">
+       {{ patient.firstName }}
+      </td>
+      <td class="text-center">
+        {{ patient.lastName }}
+      </td>
+      <td class="text-center">
+        {{ patient.gender}}
+      </td>
+      <td class="text-center">
+        <p-button type="button" icon="pi pi-eye" label="Patient Profile" styleClass="p-button-text" (click)="validateAndNavigateIfValid(patient)"></p-button>
+      </td>
+
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="paginatorleft">
+    <p-button type="button" icon="pi pi-plus" styleClass="p-button-text rounded-circle"
+              (click)="NavigateToAddPage()"></p-button>
+  </ng-template>
+  <ng-template pTemplate="paginatorright">
+  </ng-template>
+</p-table>
+
