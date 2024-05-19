@@ -78,6 +78,7 @@ export class AddPatientComponent implements OnInit{
     const doctorIds = doctorValues.map((doctor: any) => doctor.id);
     // Check if the 'All Doctors' option is selected
     let isAllDoctorsSelected = doctorIds.includes(-1);
+    let isCardiologyDepSelected = doctorIds.includes(-2);
     let requestObj = {
       "firstName": this.myForm.get("firstName")?.value + "",
       "lastName": this.myForm.get("secondName")?.value + "",
@@ -89,7 +90,8 @@ export class AddPatientComponent implements OnInit{
       // "doctorIds": (this.myForm.get("doctors")?.value || []).map((doctor:any)=> {
       //  return doctor.id;
       // }),
-      "doctorIds": isAllDoctorsSelected ? [-1] : doctorIds,
+      // let resultDoctorIds = isAllDoctorsSelected ? [-1] : (isCardiologyDepSelected ? [-2] : doctorIds);
+      "doctorIds": isAllDoctorsSelected ? [-1] : (isCardiologyDepSelected ? [-2] : doctorIds),
       "nurseIds":(this.myForm.get("nurses")?.value || []).map((nurse:any)=> {
         return nurse.id;
       }),
@@ -137,7 +139,7 @@ export class AddPatientComponent implements OnInit{
     let url = this._serviceUrl.baseUrl + this._serviceUrl.getRole + '/' + 'Doctor';
     this._serviceCall.getOpservable(url, this._serviceCall.getDefaultHeaders(null)).subscribe((response: any) => {
         // Prepend the "All Doctors" option to the list of doctors fetched from the server
-        this.doctors = [{ id: -1, name: 'All Doctors' }, ...response.users];
+        this.doctors = [{ id: -1, name: 'All Doctors' }, {id: -2, name : 'Cardiology Department'}, ...response.users];
     });
 }
 

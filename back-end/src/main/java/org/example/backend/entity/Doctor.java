@@ -25,6 +25,9 @@ public class Doctor {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
+    @Transient
+    private long departmentId;
+
     @ManyToMany(mappedBy = "doctors")
     private List<Patient> patients;
 

@@ -36,9 +36,12 @@ import {DialogModule} from "primeng/dialog";
 export class UserListComponent implements OnInit {
   allOperationalUsers: any = [];
   allOperationalRoles: any = [];
+  allDeps : any = [];
   clonedUsers: { [s: string]: any } = {};
   showAddUserDialogue: boolean = false;
   selectedRole: any = null;
+  selectedDepartment: any = null;
+
 
   constructor(private _serviceUrl: ServiceUrl,
               private _serviceCall: ServiceCall,
@@ -49,6 +52,7 @@ export class UserListComponent implements OnInit {
   ngOnInit(): void {
     this.getAllOperationUsers();
     this.getAllOperationRoles();
+    this.getAllDepartments();
   }
 
   myForm = new FormGroup({
@@ -63,6 +67,9 @@ export class UserListComponent implements OnInit {
       Validators.required
     ]),
     role: new FormControl(null, [
+      Validators.required
+    ]),
+    department: new FormControl(null, [
       Validators.required
     ])
   });
@@ -86,6 +93,14 @@ export class UserListComponent implements OnInit {
     });
   }
 
+  getAllDepartments() {
+    let url = this._serviceUrl.baseUrl + this._serviceUrl.getAllDepartments;
+    this._serviceCall.getOpservable(url, this._serviceCall.getDefaultHeaders(null)).subscribe((response: any) => {
+      debugger;
+      this.allDeps = response;
+    });
+  }
+
   clear(table: Table) {
     table.clear();
   }
@@ -97,6 +112,7 @@ export class UserListComponent implements OnInit {
   onRowEditInit(user: any) {
     this.clonedUsers[user.id as string] = {...user};
     this.selectedRole = user.role;
+    this.selectedDepartment = user.department;
     this.getAllOperationRoles();
   }
 
@@ -148,11 +164,13 @@ export class UserListComponent implements OnInit {
     this.showAddUserDialogue = false;
     let url = this._serviceUrl.baseUrl + this._serviceUrl.addNewOperationUser;
     this.selectedRole = this.myForm.get("role")?.value;
+    this.selectedDepartment = this.myForm.get("department")?.value;
     let requestBody = {
       "name":  this.myForm.get("name")?.value + "",
       "email": this.myForm.get("email")?.value + "",
       "phone": this.myForm.get("phone")?.value + "",
-      "roleId": this.selectedRole.id
+      "roleId": this.selectedRole.id,
+      "depId": this.selectedDepartment.id
     }
     this._serviceCall.postObservable(url, requestBody, this._serviceCall.getDefaultHeaders(null)).subscribe((response: any)=>{
       this.allOperationalUsers.push(response);

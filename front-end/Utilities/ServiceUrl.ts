@@ -9,6 +9,7 @@ export class ServiceUrl {
   public login = '/auth/login';
   public getAllOperationUsers = '/users/all-operational-users';
   public getAllOperationsRoles = '/role/all-operation-roles';
+  public getAllDepartments = '/department/all-operation-deps';
   public editOperationUSer = '/users/edit';
   public deActiveOperationUsers = '/users/deactive-operation-user';
   public addNewOperationUser = '/users/save-operation-user';

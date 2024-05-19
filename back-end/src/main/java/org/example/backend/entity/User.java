@@ -39,10 +39,15 @@ public class User implements UserDetails {
     private Boolean isActive;
     @JsonIgnore
     private String password;
+    
     @ManyToOne()
     @JoinColumn(name = "role_id", referencedColumnName = "id")
     @NotNull(message = "The Role Is Required")
     private Role role;
+
+    @ManyToOne()
+    @JoinColumn(name = "dep_id", referencedColumnName = "id")
+    private Department department;
 
     @Override
     @JsonIgnore

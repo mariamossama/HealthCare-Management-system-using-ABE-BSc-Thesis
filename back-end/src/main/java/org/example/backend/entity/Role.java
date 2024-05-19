@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,10 +26,13 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "role_seq")
     @SequenceGenerator(name = "role_seq", initialValue = 8, sequenceName = "role_seq", allocationSize = 1)
     private Long id;
+
     @Column(unique = true)
     @NotBlank(message = "The Name Field Is Required")
     private String name;
+
     private String description;
+
     @OneToMany(mappedBy = "role")
     private List<User> users;
 }

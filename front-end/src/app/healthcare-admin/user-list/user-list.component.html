@@ -9,7 +9,7 @@
   [tableStyle]="{ 'min-width': '50rem' }"
   currentPageReportTemplate="Showing {first} to {last} of {totalRecords} users"
   [rowsPerPageOptions]="[5, 10, 20]"
-  [globalFilterFields]="['email', 'name', 'Phone','role.name']"
+  [globalFilterFields]="['email', 'name', 'Phone','role.name', 'department.departmentName']"
   editMode="row"
 >
   <ng-template pTemplate="caption">
@@ -41,6 +41,9 @@
       </th>
       <th pSortableColumn="role.name" class="text-center">Role
         <p-sortIcon field="role.name"></p-sortIcon>
+      </th>
+      <th pSortableColumn="department.departmentName" class="text-center">department
+        <p-sortIcon field="department.departmentName"></p-sortIcon>
       </th>
       <th class="text-center">Action</th>
     </tr>
@@ -92,6 +95,22 @@
             {{ user.role.name }}
           </ng-template>
         </p-cellEditor>
+
+        <td>
+          <p-cellEditor class="d-flex justify-content-center">
+            <ng-template pTemplate="input">
+
+              <div class="card flex justify-content-center">
+                <p-dropdown appendTo="body" [options]="allDeps" [(ngModel)]="selectedDepartment" optionLabel="depname"
+                            [showClear]="true"></p-dropdown>
+              </div>
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{ user.department.departmentName }}
+            </ng-template>
+          </p-cellEditor>
+
+
       <td>
         <div class="flex align-items-center justify-content-center">
           <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil"
@@ -157,7 +176,14 @@
         <label for="float-role-label">Select a Role</label>
       </span>
     </div>
-
+    <div class="flex justify-content-center" style="margin-top: 5%">
+      <span class="p-float-label d-block w-100">
+       <p-dropdown appendTo="body" styleClass="d-block w-100" formControlName="department"
+                   [options]="allDeps" [(ngModel)]="selectedDepartment" placeholder="Select a Dep" optionLabel="depname"
+                inputId="float-role-label" id="float-role-label"></p-dropdown>
+        <label for="float-role-label">Select a Dep</label>
+      </span>
+    </div>
 
     <div class="d-flex justify-content-center" style="margin-top: 2%">
       <button class="btn btn-primary rounded w-50" type="ngSubmit" [disabled]="!myForm.valid"><span><i

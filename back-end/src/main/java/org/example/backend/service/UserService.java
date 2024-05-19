@@ -26,6 +26,10 @@ public class UserService {
     MapUserAndSaveNewOperationRequest mapper;
     @Autowired
     RoleService roleService;
+
+    @Autowired
+    DepartmentService departmentService;
+
     @Autowired
     BCryptPasswordEncoder byBCryptPasswordEncoder;
     @Autowired
@@ -55,13 +59,16 @@ public class UserService {
         user.setRole(roleService.findById(saveNewOperationRequest.getRoleId()));
         user.setPassword(byBCryptPasswordEncoder.encode("123456789"));
         user.setIsActive(Boolean.TRUE);
+        user.setDepartment(departmentService.findById(saveNewOperationRequest.getDepId()));
         mapper.MapSaveNewOperationRequestIntoUser(saveNewOperationRequest, user);
         user = userRepo.save(user);
         if(user.getRole().getName().equals("Doctor")){
+            if(user.getDepartment().getDepartmentName().equals("Cardiology")){
             String new_file = "D:/thesis_check/back-end/src/main/java/org/example/backend/service/Demo/"+"Doctor"+user.getName();
             Doctor doctor = Doctor.builder()
                     .user(user)
                     .build();
+            doctor.appendAttributes("Dep:Cardiology");
             doctor.setPrv_file(new_file);
             System.out.println(doctor.getPrv_file());
             doctor.setPrv_key(keyGenerationService.keygen(new_file, doctor.getDoctorAttributes()));
@@ -69,6 +76,21 @@ public class UserService {
             System.out.println(doctor.getDoctorAttributes());
             doctorRepo.save(doctor);
         }
+        else if(user.getDepartment().getDepartmentName().equals("Neurology"))
+        {
+            String new_file = "D:/thesis_check/back-end/src/main/java/org/example/backend/service/Demo/"+"Doctor"+user.getName();
+            Doctor doctor = Doctor.builder()
+                    .user(user)
+                    .build();
+            doctor.appendAttributes("Dep:Neurology");
+            doctor.setPrv_file(new_file);
+            System.out.println(doctor.getPrv_file());
+            doctor.setPrv_key(keyGenerationService.keygen(new_file, doctor.getDoctorAttributes()));
+            System.out.println("doctor.getDoctorAttributes()");
+            System.out.println(doctor.getDoctorAttributes());
+            doctorRepo.save(doctor);
+        }
+    }
         return user;
     }
 
