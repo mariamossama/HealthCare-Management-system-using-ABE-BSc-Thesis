@@ -14,6 +14,7 @@ import org.example.backend.entity.User;
 import org.example.backend.mapping.MapPatientAndPatientRequest;
 import org.example.backend.repo.DoctorRepo;
 import org.example.backend.repo.PatientRepo;
+import org.example.backend.repo.UserRepo;
 import org.example.backend.secuirty.SessionInfo;
 import org.example.backend.service.somehow.Cpabe;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,10 @@ public class PatientService {
 
     @Autowired
     private DoctorRepo doctorRepo;
+
+    @Autowired
+    private UserRepo userRepo;
+
     @Autowired
     private DoctorService doctorService;
     @Autowired
@@ -68,24 +73,29 @@ public class PatientService {
             doctors = doctorRepo.findAll();
             policy = defaultPolicy+ " 2of2";
         }
+        else if(patientRequest.getDoctorIds().size() == 1 && patientRequest.getDoctorIds().get(0).equals(-2L))
+        {
+            policy = defaultPolicy + " " +"Dep:Cardiology"+" "+ "3of3";
+        }
+        else if(patientRequest.getDoctorIds().size() == 1 && patientRequest.getDoctorIds().get(0).equals(-3L))
+        {    
+            policy = defaultPolicy + " " +"Dep:Neurology"+" "+ "3of3";
+        }
+        else if(patientRequest.getDoctorIds().size() == 1 && patientRequest.getDoctorIds().get(0).equals(-4L))
+        {
+            policy = defaultPolicy + " " +"Dep:Oncology"+" "+ "3of3";
+        }
         else
         {
-            System.out.println(patientRequest.getDoctorIds());
-            System.out.println("not for all doctors");
             doctors = doctorRepo.findAllByUserIdIn(patientRequest.getDoctorIds());
             policy = defaultPolicy + " " +thirdNode +" "+ "3of3";
             for(Doctor doctor : doctors)
             {
                 doctor.appendAttributes(thirdNode);
-                Doctor doctor1 = doctorService.findById(doctor.getId());
-                System.out.println("important file");
-                System.out.println(doctor1.getPrv_key());
-                doctor.setPrv_key(keyGenerationService.keygen(doctor1.getPrv_key(), doctor.getDoctorAttributes()));
+                doctor.setPrv_key(keyGenerationService.keygen(doctor.getPrv_key(), doctor.getDoctorAttributes()));
             }
-            
         }
         System.out.println(policy);
-        patient.setDoctors(doctors);
         System.out.println("Doctor IDs: " + patientRequest.getDoctorIds());
         for (Object id : patientRequest.getDoctorIds()) {
             System.out.println("Type of ID: " + id.getClass().getSimpleName() + ", Value: " + id);
@@ -114,8 +124,7 @@ public class PatientService {
                 .map(p -> new PatientResponse(p.getId(),
                         p.getFirstName(),
                         p.getLastName(),
-                        p.getGender().getName(),
-                        p.getDoctors())
+                        p.getGender().getName())
                 )
                 .collect(Collectors.toList());
     }

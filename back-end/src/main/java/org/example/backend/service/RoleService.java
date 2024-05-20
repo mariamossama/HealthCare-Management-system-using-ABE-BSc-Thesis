@@ -22,7 +22,6 @@ public class RoleService {
     public List<Role> getAllOperationalRoles() {
         List<Long> ids= Arrays.asList(1L, 3L, 5L);
         List<Role> result= roleRepository.findByIdIsNotIn(ids);
-        System.out.println(result.get(0));
         return roleRepository.findByIdIsNotIn(ids);
     }
 

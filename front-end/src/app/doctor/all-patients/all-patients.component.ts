@@ -66,12 +66,6 @@ export class AllPatientsComponent implements OnInit{
 
   validateAndNavigateIfValid(patient: any) {
     let isValid = true;
-    patient.doctors.forEach((doctor: any)=>{
-      if(doctor.user.id == this.userData.id){
-        isValid = true;
-        return;
-      }
-    });
     if(isValid){
       this._router.navigate(['/doctor/patient-profile/' + patient.id]);
     }else{

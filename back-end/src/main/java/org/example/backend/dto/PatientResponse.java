@@ -16,14 +16,12 @@ public class PatientResponse {
     private String firstName;
     private String lastName;
     private String gender;
-    private List<Doctor> doctors;
     private Long id;
 
-    public PatientResponse(Long id, String firstName, String lastName, String gender, List<Doctor> doctors) {
+    public PatientResponse(Long id, String firstName, String lastName, String gender) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.gender = gender;
-        this.doctors = doctors;
     }
 }

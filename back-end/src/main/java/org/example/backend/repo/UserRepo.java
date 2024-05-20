@@ -11,7 +11,7 @@ import java.util.Optional;
 public interface UserRepo extends JpaRepository<User, Long> {
     Optional<User> findUserByEmailAndIsActive(String email, Boolean isActive);
     List<User> findByIsActiveAndRoleIdIsNot(Boolean isActive, Long roleId);
-
+    List<User> findByDepartmentId(Long depId);
     List<User> findByRoleId(Long roleId);
     List<User> findByRoleNameIgnoreCase(String name);
 

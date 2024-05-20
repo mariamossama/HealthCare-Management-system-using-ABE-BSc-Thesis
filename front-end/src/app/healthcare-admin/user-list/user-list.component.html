@@ -101,12 +101,12 @@
             <ng-template pTemplate="input">
 
               <div class="card flex justify-content-center">
-                <p-dropdown appendTo="body" [options]="allDeps" [(ngModel)]="selectedDepartment" optionLabel="depname"
+                <p-dropdown appendTo="body" [options]="allDeps" [(ngModel)]="selectedDepartment" optionLabel="departmentName"
                             [showClear]="true"></p-dropdown>
               </div>
             </ng-template>
             <ng-template pTemplate="output">
-              {{ user.department.departmentName }}
+              {{ user.department }}
             </ng-template>
           </p-cellEditor>
 
@@ -179,8 +179,8 @@
     <div class="flex justify-content-center" style="margin-top: 5%">
       <span class="p-float-label d-block w-100">
        <p-dropdown appendTo="body" styleClass="d-block w-100" formControlName="department"
-                   [options]="allDeps" [(ngModel)]="selectedDepartment" placeholder="Select a Dep" optionLabel="depname"
-                inputId="float-role-label" id="float-role-label"></p-dropdown>
+                   [options]="allDeps" [(ngModel)]="selectedDepartment" placeholder="Select a Dep" optionLabel="departmentName"
+                inputId="float-department-label" id="float-department-label"></p-dropdown>
         <label for="float-role-label">Select a Dep</label>
       </span>
     </div>

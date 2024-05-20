@@ -63,12 +63,12 @@ public class Patient {
         this.encryptedData = data;
     }
 
-    @NotNull(message = "The Doctor Is Required")
-    @ManyToMany()
-    @JoinTable(name = "patient_doctor",
-            joinColumns = @JoinColumn(name = "patient_id"),
-            inverseJoinColumns = @JoinColumn(name = "doctor_id"))
-    private List<Doctor> doctors;
+    // @NotNull(message = "The Doctor Is Required")
+    // @ManyToMany()
+    // @JoinTable(name = "patient_doctor",
+    //         joinColumns = @JoinColumn(name = "patient_id"),
+    //         inverseJoinColumns = @JoinColumn(name = "doctor_id"))
+    // private List<Doctor> doctors;
 
     @NotNull(message = "The Gender Is Required")
     @ManyToOne()

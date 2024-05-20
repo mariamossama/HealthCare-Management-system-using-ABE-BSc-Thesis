@@ -35,5 +35,10 @@ public class Role {
 
     @OneToMany(mappedBy = "role")
     private List<User> users;
+
+    public String print()
+    {
+        return name + " " + description + " " + id ;
+    }
 }
 

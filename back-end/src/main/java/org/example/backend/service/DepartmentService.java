@@ -22,7 +22,10 @@ public class DepartmentService {
     public List<Department> getAllDepartments() {
         List<Department> res = departmentRepo.findAll();
         System.out.println("omgomg");
-        System.out.println(res.get(0).getDepartmentName());
+        for( Department d : res )
+        {
+            System.out.println(d.getDepartmentName());
+        }
         return res;
     }
  

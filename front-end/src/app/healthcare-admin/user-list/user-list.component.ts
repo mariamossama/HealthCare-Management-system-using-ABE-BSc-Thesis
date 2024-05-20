@@ -53,6 +53,7 @@ export class UserListComponent implements OnInit {
     this.getAllOperationUsers();
     this.getAllOperationRoles();
     this.getAllDepartments();
+
   }
 
   myForm = new FormGroup({
@@ -77,9 +78,17 @@ export class UserListComponent implements OnInit {
   getAllOperationUsers() {
     let url = this._serviceUrl.baseUrl + this._serviceUrl.getAllOperationUsers;
     this._serviceCall.getOpservable(url, this._serviceCall.getDefaultHeaders(null)).subscribe((response: any) => {
+      console.log("Received user data:", response);
+      if (Array.isArray(response)) {
+          response.forEach((user, index) => {
+              console.log(`User ${index}: `, user);
+          });
+      }
       this.allOperationalUsers = response;
     });
-  }
+}
+
+
 
   addUserDialogue() {
     this.showAddUserDialogue = true;
@@ -98,6 +107,7 @@ export class UserListComponent implements OnInit {
     this._serviceCall.getOpservable(url, this._serviceCall.getDefaultHeaders(null)).subscribe((response: any) => {
       debugger;
       this.allDeps = response;
+      console.log(this.allDeps)
     });
   }
 
@@ -110,9 +120,11 @@ export class UserListComponent implements OnInit {
   }
 
   onRowEditInit(user: any) {
+    console.log(user);
     this.clonedUsers[user.id as string] = {...user};
     this.selectedRole = user.role;
-    this.selectedDepartment = user.department;
+    console.log(this.selectedRole);
+    // this.selectedDepartment = user.department;
     this.getAllOperationRoles();
   }
 
@@ -172,6 +184,9 @@ export class UserListComponent implements OnInit {
       "roleId": this.selectedRole.id,
       "depId": this.selectedDepartment.id
     }
+    console.log("hihi");
+    console.log(this.selectedDepartment)
+    console.log(this.selectedDepartment.id)
     this._serviceCall.postObservable(url, requestBody, this._serviceCall.getDefaultHeaders(null)).subscribe((response: any)=>{
       this.allOperationalUsers.push(response);
       Swal.fire({

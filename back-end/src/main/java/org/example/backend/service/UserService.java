@@ -16,6 +16,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.util.*;
 
 @Service
@@ -38,8 +40,7 @@ public class UserService {
     private DoctorRepo doctorRepo;
     @Autowired
     PatientRepo patientRepo;
-    @Autowired
-    private ABEService abeService;
+
 
     public Optional<User> findUserByEmail(String email) throws WrongUserNameOrPasswordException {
         return userRepo.findUserByEmailAndIsActive(email, Boolean.TRUE);
@@ -50,9 +51,55 @@ public class UserService {
     }
 
     public List<User> getAllOperationalUsers() {
+        // List<User> res = userRepo.findByIsActiveAndRoleIdIsNot(Boolean.TRUE, 1L);
+        // System.out.println("doaaa");
+        // for( User user : res )
+        // {
+        //     if (user.getRole() == null) {
+        //         System.out.println("null role ");
+        //     }
+        //     System.out.println(user.getRole().print());
+        //     // System.out.println(user.getDepartment().print());
+        // }
         return userRepo.findByIsActiveAndRoleIdIsNot(Boolean.TRUE, 1L);
     }
 
+    void setAppropriteAttributesAndkey(User user ,Doctor doctor) throws NoSuchAlgorithmException, IOException
+    {
+        if(user.getDepartment().getDepartmentName().equals("Cardiology")){
+            String new_file = "D:/thesis_check/back-end/src/main/java/org/example/backend/service/Demo/"+"Doctor"+user.getName();
+            doctor.appendAttributes("Dep:Cardiology");
+            doctor.setPrv_file(new_file);
+            System.out.println(doctor.getPrv_file());
+            System.out.println(doctor.getDoctorAttributes());
+            doctor.setPrv_key(keyGenerationService.keygen(new_file, doctor.getDoctorAttributes()));
+            System.out.println("doctor.getDoctorAttributes()");
+            System.out.println(doctor.getDoctorAttributes());
+            //doctorRepo.save(doctor);
+        }
+        else if(user.getDepartment().getDepartmentName().equals("Neurology"))
+        {
+            String new_file = "D:/thesis_check/back-end/src/main/java/org/example/backend/service/Demo/"+"Doctor"+user.getName();
+            doctor.appendAttributes("Dep:Neurology");
+            doctor.setPrv_file(new_file);
+            System.out.println(doctor.getPrv_file());
+            doctor.setPrv_key(keyGenerationService.keygen(new_file, doctor.getDoctorAttributes()));
+            System.out.println("doctor.getDoctorAttributes()");
+            System.out.println(doctor.getDoctorAttributes());
+            //doctorRepo.save(doctor);
+        }
+        else if(user.getDepartment().getDepartmentName().equals("Oncology"))
+        {
+            String new_file = "D:/thesis_check/back-end/src/main/java/org/example/backend/service/Demo/"+"Doctor"+user.getName();
+            doctor.appendAttributes("Dep:Oncology");
+            doctor.setPrv_file(new_file);
+            System.out.println(doctor.getPrv_file());
+            doctor.setPrv_key(keyGenerationService.keygen(new_file, doctor.getDoctorAttributes()));
+            System.out.println("doctor.getDoctorAttributes()");
+            System.out.println(doctor.getDoctorAttributes());
+            //doctorRepo.save(doctor);
+        }
+    }
     @Transactional
     public User saveNewOperationUser(SaveNewOperationRequest saveNewOperationRequest) throws Exception {
         User user = new User();
@@ -63,33 +110,11 @@ public class UserService {
         mapper.MapSaveNewOperationRequestIntoUser(saveNewOperationRequest, user);
         user = userRepo.save(user);
         if(user.getRole().getName().equals("Doctor")){
-            if(user.getDepartment().getDepartmentName().equals("Cardiology")){
-            String new_file = "D:/thesis_check/back-end/src/main/java/org/example/backend/service/Demo/"+"Doctor"+user.getName();
             Doctor doctor = Doctor.builder()
                     .user(user)
                     .build();
-            doctor.appendAttributes("Dep:Cardiology");
-            doctor.setPrv_file(new_file);
-            System.out.println(doctor.getPrv_file());
-            doctor.setPrv_key(keyGenerationService.keygen(new_file, doctor.getDoctorAttributes()));
-            System.out.println("doctor.getDoctorAttributes()");
-            System.out.println(doctor.getDoctorAttributes());
+            setAppropriteAttributesAndkey(user, doctor);
             doctorRepo.save(doctor);
-        }
-        else if(user.getDepartment().getDepartmentName().equals("Neurology"))
-        {
-            String new_file = "D:/thesis_check/back-end/src/main/java/org/example/backend/service/Demo/"+"Doctor"+user.getName();
-            Doctor doctor = Doctor.builder()
-                    .user(user)
-                    .build();
-            doctor.appendAttributes("Dep:Neurology");
-            doctor.setPrv_file(new_file);
-            System.out.println(doctor.getPrv_file());
-            doctor.setPrv_key(keyGenerationService.keygen(new_file, doctor.getDoctorAttributes()));
-            System.out.println("doctor.getDoctorAttributes()");
-            System.out.println(doctor.getDoctorAttributes());
-            doctorRepo.save(doctor);
-        }
     }
         return user;
     }

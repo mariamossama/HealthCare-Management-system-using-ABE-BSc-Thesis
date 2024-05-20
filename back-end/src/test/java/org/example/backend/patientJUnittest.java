@@ -31,7 +31,6 @@ public class patientJUnittest {
         longList.add(2L);
         longList.add(3L);
         patientRequest.setDoctorIds(longList);
-    
         // Call the method with the list as a parameter
         newmap.mapPatientRequestIntoPatient(patientRequest, patient);
        // patientService.addNewPatient(null)
@@ -39,10 +38,8 @@ public class patientJUnittest {
         Assertions.assertEquals("mariam", patient.getFirstName());
         Assertions.assertEquals("azab", patient.getLastName());
        // Assertions.assertEquals("male", patient.getGender().getName());
-        Assertions.assertEquals("08/08/2002", patient.getDateOfBirth());
-        
-
-        
+        Assertions.assertEquals("08/08/2002", patient.getDateOfBirth());   
     }
+    
     
 }

@@ -15,7 +15,9 @@ D:\thesis_check\back-end\src\main\java\org\example\backend\config\SystemConfigur
 D:\thesis_check\back-end\src\main\java\org\example\backend\mapping\MapUserAndSaveNewOperationRequest.java
 D:\thesis_check\back-end\src\main\java\org\example\backend\repo\AppointmentRepo.java
 D:\thesis_check\back-end\src\main\java\org\example\backend\entity\Role.java
+D:\thesis_check\back-end\src\main\java\org\example\backend\service\somehow\DecryptionException.java
 D:\thesis_check\back-end\src\main\java\org\example\backend\dto\ErrorResponse.java
+D:\thesis_check\back-end\src\main\java\org\example\backend\controller\DepartmentController.java
 D:\thesis_check\back-end\src\main\java\org\example\backend\service\AuthService.java
 D:\thesis_check\back-end\src\main\java\org\example\backend\controller\DoctorController.java
 D:\thesis_check\back-end\src\main\java\org\example\backend\controller\PatientController.java
@@ -28,15 +30,14 @@ D:\thesis_check\back-end\src\main\java\org\example\backend\mapping\MapPatientAnd
 D:\thesis_check\back-end\src\main\java\org\example\backend\service\UserService.java
 D:\thesis_check\back-end\src\main\java\org\example\backend\service\GenderService.java
 D:\thesis_check\back-end\src\main\java\org\example\backend\repo\GenderRepo.java
-D:\thesis_check\back-end\src\main\java\org\example\backend\service\ABEService.java
 D:\thesis_check\back-end\src\main\java\org\example\backend\controller\GenderController.java
-D:\thesis_check\back-end\src\main\java\org\example\backend\service\somehow\policy\LangPolicy.java
 D:\thesis_check\back-end\src\main\java\org\example\backend\controller\RolesController.java
 D:\thesis_check\back-end\src\main\java\org\example\backend\BackEndApplication.java
 D:\thesis_check\back-end\src\main\java\org\example\backend\service\somehow\Common.java
 D:\thesis_check\back-end\src\main\java\org\example\backend\service\RoleService.java
 D:\thesis_check\back-end\src\main\java\org\example\backend\service\somehow\BswabeMsk.java
 D:\thesis_check\back-end\src\main\java\org\example\backend\service\AppointmentService.java
+D:\thesis_check\back-end\src\main\java\org\example\backend\service\somehow\LangPolicy.java
 D:\thesis_check\back-end\src\main\java\org\example\backend\service\somehow\BswabeElementBoolean.java
 D:\thesis_check\back-end\src\main\java\org\example\backend\service\DoctorService.java
 D:\thesis_check\back-end\src\main\java\org\example\backend\secuirty\SecurityConfig.java
@@ -64,6 +65,7 @@ D:\thesis_check\back-end\src\main\java\org\example\backend\secuirty\LogoutServic
 D:\thesis_check\back-end\src\main\java\org\example\backend\controller\AppointmentController.java
 D:\thesis_check\back-end\src\main\java\org\example\backend\entity\Department.java
 D:\thesis_check\back-end\src\main\java\org\example\backend\service\somehow\BswabePrvComp.java
+D:\thesis_check\back-end\src\main\java\org\example\backend\service\Value.java
 D:\thesis_check\back-end\src\main\java\org\example\backend\service\somehow\BswabeCph.java
 D:\thesis_check\back-end\src\main\java\org\example\backend\service\PatientService.java
 D:\thesis_check\back-end\src\main\java\org\example\backend\dto\AppointmentRequest.java

@@ -12,6 +12,7 @@ import org.example.backend.dto.AllPatientsResponse;
 import org.example.backend.entity.Doctor;
 import org.example.backend.entity.User;
 import org.example.backend.repo.DoctorRepo;
+import org.example.backend.repo.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -21,21 +22,17 @@ import org.springframework.stereotype.Service;
 public class DoctorService {
     @Autowired
     private DoctorRepo doctorRepo;
+
     @Autowired
-    private ABEService abeService;
+    private UserRepo userRepo;
+
+  
     public List<AllPatientsResponse> findDoctorPatient() throws Exception {
         List<AllPatientsResponse> allPatientsResponses = new ArrayList<>();
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = (User) authentication.getPrincipal();
-        Doctor doctor = findByUserId(user.getId());
         Map<String, String> doctorAttributes = new HashMap<>();
         doctorAttributes.put("role", "doctor");
-        for(int i = 0; i < doctor.getPatients().size(); i++){
-            byte[] encryptedData = doctor.getPatients().get(i).getEncryptedData();
-            //abeService.validateAccessibility(encryptedData, doctorAttributes, doctor.getDecryptionKey());
-            String s = new String(encryptedData, StandardCharsets.UTF_8);
-            allPatientsResponses.add(MapTheStringIntoAllPatientResponse(s));
-        }
         return allPatientsResponses;
     }
 
@@ -66,6 +63,10 @@ public class DoctorService {
 
     public Doctor findByUserId(Long id) throws Exception {
         return doctorRepo.findByUserId(id).orElseThrow(()-> new Exception("There Is No User With This Id"));
+    }
+
+    public List<User> findByDep(long departmentId) {
+        return userRepo.findByDepartmentId(departmentId);
     }
 
     public List<Doctor> getAllDoctors() throws Exception {

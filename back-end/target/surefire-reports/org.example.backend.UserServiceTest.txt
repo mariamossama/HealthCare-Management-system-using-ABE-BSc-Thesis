@@ -1,0 +1,12 @@
+-------------------------------------------------------------------------------
+Test set: org.example.backend.UserServiceTest
+-------------------------------------------------------------------------------
+Tests run: 11, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.788 s <<< FAILURE! -- in org.example.backend.UserServiceTest
+org.example.backend.UserServiceTest.testSaveNewOperationUser -- Time elapsed: 0.016 s <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "org.example.backend.entity.Role.getName()" because the return value of "org.example.backend.entity.User.getRole()" is null
+	at org.example.backend.service.UserService.saveNewOperationUser(UserService.java:112)
+	at org.example.backend.UserServiceTest.testSaveNewOperationUser(doctorJUnittest.java:128)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+

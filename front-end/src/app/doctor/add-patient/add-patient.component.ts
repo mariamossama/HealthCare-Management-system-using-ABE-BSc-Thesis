@@ -71,32 +71,29 @@ export class AddPatientComponent implements OnInit{
       Validators.required
     ])
   });
-
   addNewPatient() {
-    let url = this._serviceUrl.baseUrl + this ._serviceUrl.addPatient;
+    let url = this._serviceUrl.baseUrl + this._serviceUrl.addPatient;
     const doctorValues = this.myForm.get('doctors')?.value || [];
     const doctorIds = doctorValues.map((doctor: any) => doctor.id);
-    // Check if the 'All Doctors' option is selected
+
     let isAllDoctorsSelected = doctorIds.includes(-1);
     let isCardiologyDepSelected = doctorIds.includes(-2);
+    let isNeurologyDepSelected = doctorIds.includes(-3);
+    let isOncologyDepSelected = doctorIds.includes(-4);
+
     let requestObj = {
       "firstName": this.myForm.get("firstName")?.value + "",
       "lastName": this.myForm.get("secondName")?.value + "",
       "dateOfBirth": this.myForm.get("dateOfBirth")?.value + "",
-      "genderId":  Number((this.myForm.get("gender")?.value as any)?.id ?? null),
+      "genderId": Number((this.myForm.get("gender")?.value as any)?.id ?? null),
       "medicalHistory": this.myForm.get("medicalHistory")?.value + "",
       "symptomSummary": this.myForm.get("symptomSummary")?.value + "",
       "currentDiagnosis": this.myForm.get("currentDiagnosis")?.value + "",
-      // "doctorIds": (this.myForm.get("doctors")?.value || []).map((doctor:any)=> {
-      //  return doctor.id;
-      // }),
-      // let resultDoctorIds = isAllDoctorsSelected ? [-1] : (isCardiologyDepSelected ? [-2] : doctorIds);
-      "doctorIds": isAllDoctorsSelected ? [-1] : (isCardiologyDepSelected ? [-2] : doctorIds),
-      "nurseIds":(this.myForm.get("nurses")?.value || []).map((nurse:any)=> {
+      "doctorIds": isAllDoctorsSelected ? [-1] : (isCardiologyDepSelected ? [-2] : (isOncologyDepSelected ? [-4] :(isNeurologyDepSelected ? [-3] : doctorIds))),
+      "nurseIds": (this.myForm.get("nurses")?.value || []).map((nurse: any) => {
         return nurse.id;
       }),
-    }
-
+    };
     this._serviceCall.postObservable(url, requestObj,this._serviceCall.getDefaultHeaders(null)).subscribe((response:any)=>{
       this.reset();
       Swal.fire({
@@ -129,17 +126,10 @@ export class AddPatientComponent implements OnInit{
     });
   }
 
-  // getAllDoctors(){
-  //   let url = this._serviceUrl.baseUrl + this._serviceUrl.getRole + '/' + 'Doctor';
-  //   this._serviceCall.getOpservable(url, this._serviceCall.getDefaultHeaders(null)).subscribe((response: any)=>{
-  //     this.doctors = response.users;
-  //   });
-  // }
   getAllDoctors() {
     let url = this._serviceUrl.baseUrl + this._serviceUrl.getRole + '/' + 'Doctor';
     this._serviceCall.getOpservable(url, this._serviceCall.getDefaultHeaders(null)).subscribe((response: any) => {
-        // Prepend the "All Doctors" option to the list of doctors fetched from the server
-        this.doctors = [{ id: -1, name: 'All Doctors' }, {id: -2, name : 'Cardiology Department'}, ...response.users];
+        this.doctors = [{ id: -1, name: 'All Doctors' }, {id: -2, name : 'Cardiology Department'},{ id: -3, name: 'Neurology Department' }, {id: -4, name : 'Oncology Department'}, ...response.users];
     });
 }
 

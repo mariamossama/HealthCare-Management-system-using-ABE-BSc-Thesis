@@ -11,6 +11,6 @@ import java.util.List;
 @Repository
 public interface PatientRepo extends JpaRepository<Patient, Long> {
 
-    @Query("SELECT new org.example.backend.dto.PatientResponse(CONCAT(p.firstName, ' ', p.lastName), p.dateOfBirth, p.doctors) from Patient p")
+    @Query("SELECT new org.example.backend.dto.PatientResponse(CONCAT(p.firstName, ' ', p.lastName), p.dateOfBirth) from Patient p")
     List<PatientResponse> findAllProjected();
 }

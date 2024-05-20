@@ -83,6 +83,7 @@ export class ServiceCall {
   }
 
   public getOpservable<T>(url: string, _headers: any, alertError: boolean = true) {
+    
     url = this.handleUrl(url);
     if (this.checkJwt() == false) {
       this.response = {};

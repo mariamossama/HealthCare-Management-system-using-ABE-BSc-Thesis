@@ -26,17 +26,22 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_seq")
     @SequenceGenerator(name = "user_seq", initialValue = 3, sequenceName = "user_seq", allocationSize = 1)
     private Long id;
+
     @Column(unique = true)
     @NotBlank(message = "The Name Field Is Required")
     private String name;
+
     @Column(unique = true)
     @NotBlank(message = "The Email Field Is Required")
     @Email(message = "This Field Should Be Email")
     private String email;
+
     @NotBlank(message = "The Phone Field Is Required")
     private String phone;
+
     @Column(name = "is_active", columnDefinition = "BOOLEAN DEFAULT TRUE")
     private Boolean isActive;
+    
     @JsonIgnore
     private String password;
     

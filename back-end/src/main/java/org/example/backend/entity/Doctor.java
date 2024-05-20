@@ -28,8 +28,6 @@ public class Doctor {
     @Transient
     private long departmentId;
 
-    @ManyToMany(mappedBy = "doctors")
-    private List<Patient> patients;
 
     @Builder.Default
     @Transient

@@ -29,4 +29,9 @@ public class Department {
     @Column(unique = true)
     @NotBlank(message = "The Name Field Is Required")
     private String departmentName;
+
+    public String print()
+    {
+        return id + " " + departmentName;
+    }
 }
